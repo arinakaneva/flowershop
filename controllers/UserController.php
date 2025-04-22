@@ -6,9 +6,34 @@ use app\models\User;
 use yii\rest\ActiveController;
 use yii\web\Response;
 use Yii;
+use yii\filters\Cors;
 
 class UserController extends RestController
 {
+
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        
+        // Удаляем стандартный authenticator
+        unset($behaviors['authenticator']);
+        
+        // Добавляем CORS фильтр
+        $behaviors['corsFilter'] = [
+            'class' => Cors::class,
+            'cors' => [
+                'Origin' => ['http://localhost:5174'],
+                'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                'Access-Control-Request-Headers' => ['*'],
+                'Access-Control-Allow-Credentials' => true,
+                'Access-Control-Max-Age' => 86400,
+                'Access-Control-Expose-Headers' => [],
+            ],
+        ];
+        
+        return $behaviors;
+    }
+
     public $modelClass = 'app\models\User';
     public function actions()
     {
@@ -53,6 +78,22 @@ class UserController extends RestController
         ]);
     
     }
+
+    public function actionLogout()
+    {
+        $user = User::getByToken();
+        if ($user) {
+            $user->token = null;
+            $user->save();
+            return $this->Response(200, [
+                'message' => 'Вы успешно вышли из системы'
+            ]);
+        }
+        return $this->Response(401, [
+            'message' => 'Пользователь не авторизован'
+        ]);
+    }
+
     public function actionUser()
     {
         

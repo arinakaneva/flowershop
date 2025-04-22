@@ -54,6 +54,7 @@ $config = [
         'rules' => [
             'POST registr' => 'user/create',
             'POST login' => 'user/login', 
+            'GET  logout' => 'user/logout', 
             'GET user' => 'user/user',
             'GET product/<id:\d+>' => 'product/product',
             'GET product' => 'product/all',
