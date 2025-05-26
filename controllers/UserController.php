@@ -95,13 +95,18 @@ class UserController extends RestController
     }
 
     public function actionUser()
-    {
-        
-            $user = User::getByToken();
-            if ($user && $user->isAuthorized()) {
-                return $this->Response(200, ['data' => $user]);
-            }
-            return $this->Response(401, ['error' => ['message' => 'Вы не авторизованы']]);
-    
+{
+    $user = User::getByToken();
+    if ($user && $user->isAuthorized()) {
+        return $this->Response(200, [
+            'id_user' => $user->id_user,
+            'name' => $user->name,
+            'surname' => $user->surname,
+            'email' => $user->email,
+            'phone' => $user->phone,
+            'isAdmin' => $user->isAdmin(),
+        ]);
     }
+    return $this->Response(401, ['error' => ['message' => 'Вы не авторизованы']]);
+}
 }

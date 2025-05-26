@@ -82,10 +82,34 @@ class ProductController extends RestController
             }
     }
     public function actionAll()
-    {
-    if (product::find()) {
-    return $this->Response(200, ['data' => Product::find()->select(['id_product','name', 'photo', 'price'])->all()]);
+{
+    $products = Product::find()
+        ->select([
+            'id_product',
+            'name',
+            'photo',
+            'price',
+            'id_category', // нужно для связи
+        ])
+        ->with('category') // жадная загрузка категории
+        ->all();
+
+    if ($products) {
+        // Преобразуем данные, чтобы включить название категории
+        $result = array_map(function ($product) {
+            return [
+                'id_product' => $product->id_product,
+                'name' => $product->name,
+                'category_name' => $product->category->name ?? null, // берём название из связи
+                'photo' => $product->photo,
+                'price' => $product->price,
+            ];
+        }, $products);
+
+        return $this->Response(200, ['data' => $result]);
     }
     return $this->Response(204);
-    }
+}
+
+
 }

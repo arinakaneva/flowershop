@@ -57,10 +57,6 @@ class User extends \yii\db\ActiveRecord
             ['phone', 'unique', 'message' => 'Этот телефон уже используется'],
             ['password', 'string', 'min' => 8, 'message'=>'Минимум 8 символов'],
             ['password_repetition', 'compare', 'compareAttribute' => 'password', 'message'=>'Пароли должны совпадать'],
-
-
-
-    
             [['id_role'], 'integer'],
 
             [['id_role'], 'exist', 'skipOnError' => true, 'targetClass' => Role::class, 'targetAttribute' => ['id_role' => 'id_role']],

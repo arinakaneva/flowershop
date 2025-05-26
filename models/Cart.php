@@ -34,6 +34,7 @@ class Cart extends \yii\db\ActiveRecord
             [['id_user'], 'required'],
             [['id_user'], 'integer'],
             [['created'], 'safe'],
+            [['is_active'], 'default', 'value' => 0],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id_user']],
         ];
     }

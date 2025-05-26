@@ -7,6 +7,7 @@ $config = [
     'id' => 'basic',
     'name'=>'flower',
     'language'=>'ru-RU',
+    'timeZone' => 'Europe/Moscow',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -59,11 +60,14 @@ $config = [
             'GET product/<id:\d+>' => 'product/product',
             'GET product' => 'product/all',
             'GET order' => 'order/user',
+            'POST order' => 'order/create',
             'GET cart' => 'order/item',
             'POST cart' => 'order/add-cart',
             'DELETE cart/<id_product:\d+>' => 'order/onedel',
             'POST admin/product' => 'product/create',
             'POST admin/product/<id_product:\d+>' => 'product/upgrade',
+            'POST admin/order/<id_order:\d+>' => 'order/status',
+            'GET admin/order' => 'order/admin',
 
 
         //['class' => 'yii\rest\UrlRule', 'controller' => 'user'],

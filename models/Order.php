@@ -38,8 +38,7 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['id_user', 'status', 'name', 'phone', 'address', 'pay', 'comment', 'id_cart'], 'required'],
-            [['id_user', 'id_cart3
-            '], 'integer'],
+            [['id_user', 'id_cart'], 'integer'],
             [['status', 'pay'], 'string'],
             [['created'], 'safe'],
             [['name', 'address', 'comment'], 'string', 'max' => 255],
