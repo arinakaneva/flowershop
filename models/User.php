@@ -56,6 +56,8 @@ class User extends \yii\db\ActiveRecord
             [['phone'], 'match', 'pattern' => '/^\+?[0-9\-\s()]+$/', 'message' => 'Неверный формат номера телефона. Допустимы цифры, пробелы, "+", "-", "()"'],
             ['phone', 'unique', 'message' => 'Этот телефон уже используется'],
             ['password', 'string', 'min' => 8, 'message'=>'Минимум 8 символов'],
+            ['password', 'match', 'pattern' => '/^(?=.*[A-Z])(?=.*\d).+$/', 
+            'message' => 'Пароль должен содержать хотя бы одну заглавную букву и одну цифру' ],
             ['password_repetition', 'compare', 'compareAttribute' => 'password', 'message'=>'Пароли должны совпадать'],
             [['id_role'], 'integer'],
 
