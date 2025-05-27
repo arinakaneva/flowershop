@@ -68,6 +68,7 @@ $config = [
             'POST admin/product/<id_product:\d+>' => 'product/upgrade',
             'POST admin/order/<id_order:\d+>' => 'order/status',
             'GET admin/order' => 'order/admin',
+            'GET categories' => 'product/categories',
 
 
         //['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
